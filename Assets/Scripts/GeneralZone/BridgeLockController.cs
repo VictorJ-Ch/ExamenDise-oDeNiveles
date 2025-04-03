@@ -16,10 +16,18 @@ public class BridgeLockController : MonoBehaviour
 
     public KeyCode interactKey = KeyCode.E;
     public bool isPlayerInRange = false;
+
+
+    private UIManager uiManager;
+
+
+
     void Start()
     {
+        uiManager = FindObjectOfType<UIManager>();
         bridgeWall.SetActive(true);
         miniGameZoneWall.SetActive(false);
+
     }
 
     void Update()
@@ -36,10 +44,12 @@ public class BridgeLockController : MonoBehaviour
                 {
                     isPlayerInRange = true;
                     Debug.Log("Colocar llave E");
+                    uiManager.UpdatePanelState(true);
                 }
                 else
                 {
                     isPlayerInRange = false;
+                    uiManager.UpdatePanelState(false);
                 }
 
                 if (isPlayerInRange && Input.GetKeyDown(interactKey))
@@ -65,6 +75,7 @@ public class BridgeLockController : MonoBehaviour
         Debug.Log("El puente esta abierrto");
         bridgeWall.SetActive(false);
         StartCoroutine(CloseBridge());
+        uiManager.UpdatePanelState(false);
     }
 
 

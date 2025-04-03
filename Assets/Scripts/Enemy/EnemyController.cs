@@ -11,6 +11,16 @@ public class EnemyController : MonoBehaviour
 
     public bool isPlayerInRange = false;
     public bool isEnemyChasing = false;
+
+    private UIManager uiManager;
+
+
+    void Start()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+    }
+
+
     void Update()
     {
         if(player != null)
@@ -52,6 +62,8 @@ public class EnemyController : MonoBehaviour
         if(collison.gameObject == player)
         {
             Debug.LogWarning("Has perdido");
+            uiManager.UpdateWinOrLoose(false, true);
+            Time.timeScale = 0;
         }
     }
 

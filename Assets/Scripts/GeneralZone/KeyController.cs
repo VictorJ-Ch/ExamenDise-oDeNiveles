@@ -9,6 +9,15 @@ public class KeyController : MonoBehaviour
     public KeyCode interactKey = KeyCode.E;
     public bool isPlayerInRange = false;
 
+    private UIManager uiManager;
+
+    void Start ()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+    }
+
+
+
     void Update()
     {
         if (player != null)
@@ -19,10 +28,12 @@ public class KeyController : MonoBehaviour
             {
                 isPlayerInRange = true;
                 Debug.Log("Recoger llave E");
+                uiManager.UpdatePanelState(true);
             }
             else
             {
                 isPlayerInRange = false;
+                uiManager.UpdatePanelState(false);
             }
 
 
@@ -40,7 +51,7 @@ public class KeyController : MonoBehaviour
         Debug.Log("Tenes la llave del puente");
         player.GetComponent<PlayerInventory>().hasKey = true;
         gameObject.SetActive(false);
-        
+        uiManager.UpdatePanelState(false);
     }
 
 

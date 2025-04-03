@@ -10,6 +10,15 @@ public class BatteryHolderController : MonoBehaviour
 
     public KeyCode interactKey = KeyCode.E;
     public bool isPlayerInRange = false;
+    
+    private UIManager uiManager;
+
+
+    void Start()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+    }
+
     void Update()
     {
         if (player != null) 
@@ -24,10 +33,13 @@ public class BatteryHolderController : MonoBehaviour
                 {
                     isPlayerInRange = true;
                     Debug.Log("Colocar bateria E");
+                    uiManager.UpdatePanelState(true);
+
                 }
                 else
                 {
                     isPlayerInRange = false;
+                    uiManager.UpdatePanelState(false);
                 }
 
                 if (isPlayerInRange && Input.GetKeyDown(interactKey))
@@ -46,6 +58,8 @@ public class BatteryHolderController : MonoBehaviour
     private void PerformAction()
     {
         Debug.Log("Has ganado");
+        uiManager.UpdateWinOrLoose(true, false);
+        Time.timeScale = 0;
     }
 
 

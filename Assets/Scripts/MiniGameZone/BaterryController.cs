@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaterryController : MonoBehaviour
 {
@@ -8,6 +9,16 @@ public class BaterryController : MonoBehaviour
     public float detectionRange = 5f;
     public KeyCode interactKey = KeyCode.E;
     public bool isPlayerInRange = false;
+
+
+    private UIManager uiManager;
+
+
+
+    void Start()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+    }
 
     void Update()
     {
@@ -19,10 +30,12 @@ public class BaterryController : MonoBehaviour
             {
                 isPlayerInRange = true;
                 Debug.Log("Recoger la bateria E");
+                uiManager.UpdatePanelState(true);
             }
             else
             {
                 isPlayerInRange = false;
+                uiManager.UpdatePanelState(false);
             }
 
 
@@ -39,7 +52,7 @@ public class BaterryController : MonoBehaviour
         Debug.Log("Tenes la bateria");
         player.GetComponent<PlayerInventory>().hasBatery = true;
         gameObject.SetActive(false);
-        
+        uiManager.UpdatePanelState(false);
     }
 
 
